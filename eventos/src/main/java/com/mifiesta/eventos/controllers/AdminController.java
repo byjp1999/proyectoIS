@@ -2,8 +2,8 @@ package com.mifiesta.eventos.controllers;
 
 import java.util.List;
 
-import com.mifiesta.eventos.models.Evento;
-import com.mifiesta.eventos.service.EventoService;
+import com.mifiesta.eventos.models.Admin;
+import com.mifiesta.eventos.service.AdminService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,45 +16,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "/SRS/evento")
-public class EventoRestController {
-    
+@RequestMapping(value= "/SRS/eventos/pruebasadmin")
+public class AdminController {
+
     @Autowired
-    private EventoService eventoService;
+    private AdminService adminService;
 
     @GetMapping
-    public List<Evento> findAll()
+    public List<Admin> findAll()
     {
-        return eventoService.findAll();
+        return adminService.findAll();
     }
-
     @PostMapping
-    public Evento save(@RequestBody Evento evento)
+    public Admin save(@RequestBody Admin admin)
     {
-        return eventoService.save(evento);
+        return adminService.save(admin);
     }
-
     @GetMapping("/{id}")
-    public Evento findById(@PathVariable Long id)
+    public Admin findById(@PathVariable Long id)
     {
-        return eventoService.findById(id);
+        return adminService.findById(id);
     }
-
     @DeleteMapping("/{id}")
     public String delete(@PathVariable Long id)
     {
-        eventoService.delete(id);
-        return "Evento eliminado";
+        adminService.delete(id);
+        return "persona eliminado";
+    }
+    @PutMapping("/{id}")
+    public String update(@PathVariable Long id, @RequestBody Admin admin)
+    {
+        Admin oldadmin = adminService.update(id, admin);
+        if(oldadmin != null)
+        {
+            return "persona modificado";
+        }
+        return "persona no encontrado";
     }
 
-    @PutMapping("/{id}")
-    public String update(@PathVariable Long id, @RequestBody Evento evento)
-    {
-        Evento oldEvento = eventoService.update(id, evento);
-        if(oldEvento != null)
-        {
-            return "Evento modificado";
-        }
-        return "Evento no encontrado";
-    }
 }
