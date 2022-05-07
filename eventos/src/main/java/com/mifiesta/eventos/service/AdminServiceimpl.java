@@ -42,6 +42,12 @@ public class AdminServiceimpl implements AdminService {
         repo.findAll().forEach(obj -> returnList.add(obj));
         return returnList;
     }
+    @Override
+    public List<Admin> findForType(int typeperson){
+        List<Admin> typelist = new ArrayList<>();
+        repo.findAll().forEach(obj -> typelist.add(obj));
+        return typelist;
+    }
 
     @Override
     public Admin update(Long id, Admin admin) {

@@ -16,5 +16,7 @@ public interface AdminService {
 
     List<Admin> findAll();
 
+    List<Admin> findForType(int typeperson);
+
     
 }
